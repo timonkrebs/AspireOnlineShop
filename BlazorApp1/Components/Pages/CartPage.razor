@@ -1,0 +1,73 @@
+﻿@page "/cart"
+@inject BlazorApp1.Services.CartService Cart
+@rendermode InteractiveServer
+
+
+<h3>Your Cart</h3>
+
+
+@if (!Cart.Items.Any())
+{
+    <p>Your cart is empty. <a href="/">Go shopping</a>.</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th style="width: 140px;">Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Cart.Items)
+            {
+                <tr>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <img src=@($"data:image/jpeg;base64,{item.Product.ImageBase64}") alt="@item.Product.Name" style="width:48px;height:48px;object-fit:cover;border-radius:8px;"/>
+                            <div>
+                                <div>@item.Product.Name</div>
+                                <small class="text-muted">@item.Product.Description</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" min="1" max="@(item.Product.Stock)" value="@(item.Quantity)" @onchange="(e => QtyChanged(item.Product.Id, e))" />
+                    </td>
+                    <td>@item.Product.Price.ToString("C")</td>
+                    <td>@item.LineTotal.ToString("C")</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-danger" @onclick="() => Cart.Remove(item.Product.Id)">Remove</button>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="card p-3" style="max-width:420px;">
+        <div class="d-flex justify-content-between"><span>Subtotal</span><strong>@Cart.Subtotal.ToString("C")</strong></div>
+        <div class="d-flex justify-content-between text-muted"><span>Shipping</span><span>@Cart.Shipping.ToString("C")</span></div>
+        <hr />
+        <div class="d-flex justify-content-between fs-5"><span>Total</span><strong>@Cart.Total.ToString("C")</strong></div>
+        <a class="btn btn-primary mt-3" href="/checkout">Checkout</a>
+        <button class="btn btn-link mt-2" @onclick="Cart.Clear">Clear cart</button>
+    </div>
+}
+
+
+@code {
+    private void QtyChanged(int productId, ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out var qty))
+        {
+            Cart.UpdateQuantity(productId, qty);
+        }
+    }
+}

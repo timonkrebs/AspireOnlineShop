@@ -1,0 +1,36 @@
+﻿@page "/"
+@using BlazorApp1.Models
+@inject BlazorApp1.Services.CartService Cart
+@inject BlazorApp1.Services.IProductService Catalog
+@rendermode InteractiveServer
+
+<h3>Shop</h3>
+<p class="text-muted">Pick your favorites.</p>
+
+
+@if (products is null)
+{
+    <p>Loading…</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        @foreach (var p in products)
+        {
+            <div class="col">
+                <ProductCard Product="p" />
+            </div>
+        }
+    </div>
+}
+
+
+@code {
+    private List<Product>? products;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Catalog.GetProductsAsync();
+    }
+}
