@@ -14,7 +14,6 @@ _ReSharper*/
 
 ### VS Code / Devcontainer ###
 .vscode/
-.devcontainer/
 
 ### Build outputs ###
 **/bin/
