@@ -1,0 +1,58 @@
+### Visual Studio / .NET ###
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.DotSettings.user
+
+### Rider / JetBrains ###
+.idea/
+*.sln.iml
+_ReSharper*/
+*.DotSettings
+
+### VS Code / Devcontainer ###
+.vscode/
+.devcontainer/
+
+### Build outputs ###
+**/bin/
+**/obj/
+**/Debug/
+**/Release/
+
+### SDK / packages ###
+*.nupkg
+.nuget/
+packages/
+project.assets.json
+
+### Publish / packing ###
+publish/
+*.Publish.xml
+
+### Logs, temp files ###
+*.log
+*.tmp
+*.cache
+
+### OS generated files ###
+.DS_Store
+Thumbs.db
+
+### Tooling ###
+/.idea/
+.vscode-test/
+
+### Node (if any front-end) ###
+node_modules/
+
+### Database files ###
+*.mdf
+*.ldf
+
+### Secrets / user-specific settings ###
+secrets.json
+local.settings.json
+appsettings.*.Local.json
