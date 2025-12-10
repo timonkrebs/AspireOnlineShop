@@ -4,6 +4,8 @@ using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
 {
     var cfg = builder.Configuration.GetSection("ConnectionStrings")["Redis"];

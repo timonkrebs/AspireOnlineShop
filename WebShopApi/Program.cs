@@ -1,11 +1,14 @@
 using WebShopApi.Services;
 
+// dotnet run --project ./BlazorApp1.AppHost/BlazorApp1.AppHost.csproj
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddTransient<IProductService, SqlProductService>();
 builder.Services.AddSwaggerGen();
+
+builder.AddServiceDefaults();
 
 var app = builder.Build();
 
